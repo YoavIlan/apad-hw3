@@ -26,7 +26,7 @@ const handleSubmit = (e) => {
 	setError(true);
 	} else {
 	setSubmitted(true);
-  var fetchURL="http://localhost/getLastName/" + name
+  var fetchURL="/getLastName/" + name
   fetch(fetchURL)
   
   .then((response) => response.text())
