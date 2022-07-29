@@ -2,15 +2,23 @@ import { useState } from 'react';
 
 export default function Form() {
 
-// States for registration
+/*name holds user input and lastName handles output from server
+these values are maintained as stateful with setter methods to keep them updated
+
+*/
 const [name, setName] = useState('');
 const [lastname, setLastName] = useState('');
 
-// States for checking the errors
+/*error is the boolean value we use as flag to display either an error response or success response
+submitted is the boolean value we use to indicate if input was valid. It only works for empty string responses for now
+these are also stateful values with setter methods
+*/
 const [submitted, setSubmitted] = useState(false);
 const [error, setError] = useState(false);
 
-// Handling the name change
+/*This method handles the change of input
+
+*/
 const handleName = (e) => {
 	setName(e.target.value);
 	setSubmitted(false);
@@ -18,8 +26,12 @@ const handleName = (e) => {
 
 
 
+/*This method triggers on submit. It calls the backend endpoint to get last name
+The backend only accepts one input in any other case it returns a 404 with a custom error message
 
-// Handling the form submission
+in case of a 200 we set seterror as false
+
+*/
 const handleSubmit = (e) => {
 	e.preventDefault();
 	if (name === '' ) {
@@ -45,16 +57,13 @@ const handleSubmit = (e) => {
     }
   });
   
-
-  //var lastName= JSON.parse(jsonBody);
-
-  //name=lastName.name
-
-	//setError(false);
 	}
 };
 
-// Showing success message
+/* We use this method when we get a 200 response 
+
+
+*/
 const successMessage = () => {
 	return (
     <>
@@ -69,7 +78,10 @@ const successMessage = () => {
 	);
 };
 
-// Showing error message if error is true
+/* we use this when we get a 404
+
+
+*/
 const errorMessage = () => {
 	return (
 	<div
@@ -91,7 +103,7 @@ return (
 	
 
 	<form>
-		{/* Labels and inputs for form data */}
+		{}
 		<label id="lbl" className="label">First Name: </label>
 		<input id="inp" onChange={handleName} className="input"
 		value={name} type="text" />
