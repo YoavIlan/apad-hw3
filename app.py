@@ -1,34 +1,22 @@
-import os
-
 from flask import Flask, jsonify
-from flask_cors import cross_origin, CORS
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__, static_folder='./build', static_url_path='/')
 cors = CORS(app)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
-
-@app.route('/getLastName/<firstName>')
+@app.route("/getname/<name>")
 @cross_origin()
-def hello_world(firstName):
-    if firstName == "Aman":
-        successM = {"name": "Bhardwaj", "code": 200}
-        return jsonify(successM), 200
-    else:
-        errorM = {"error": "User Not Found", "code": 404}
-        return jsonify(errorM), 404
-
+def get_name(name):
+    if name.lower() == "yoav":
+        return jsonify({"name": "Ilan", 'success': True}), 200
+    return jsonify({"name": "User not found", 'success': False}), 404
 
 @app.route('/')
 @cross_origin()
 def index():
     return app.send_static_file('index.html')
 
-
-@app.errorhandler(404)
-def not_found(e):
-    return app.send_static_file('index.html')
-
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', debug=False, port=80)
+if __name__ == "__main__":
+    app.run(debug=True)
+    # app.run(host='0.0.0.0', debug=False, port=80)
